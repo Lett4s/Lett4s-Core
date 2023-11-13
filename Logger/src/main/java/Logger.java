@@ -1,5 +1,3 @@
-package com.lett4s.logger;
-
 public class Logger {
 
     public Logger() {

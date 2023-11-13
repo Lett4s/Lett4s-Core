@@ -1,5 +1,3 @@
-package com.lett4s.logger;
-
 public enum LogType {
 
     ERROR("\u001B[31m"),
