@@ -10,7 +10,8 @@
     <packaging>pom</packaging>
     <modules>
         <module>Logger</module>
-        <module>WebSocket</module>
+        <module>HTTP</module>
+        <module>UI</module>
     </modules>
 
     <properties>

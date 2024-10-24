@@ -1,3 +1,5 @@
+package logger;
+
 public enum LogType {
 
     WARN("\u001B[33m"),
