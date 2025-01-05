@@ -1,15 +1,13 @@
 package generic.dialog;
 
-import com.hawolt.SwiftRift;
-import com.hawolt.ui.generic.component.LFlatButton;
-import com.hawolt.ui.generic.component.LTextAlign;
-import com.hawolt.ui.generic.dialog.impl.SwiftComboOptionDialog;
-import com.hawolt.ui.generic.dialog.impl.SwiftInputDialog;
-import com.hawolt.ui.generic.dialog.impl.SwiftNotificationDialog;
-import com.hawolt.ui.generic.dialog.impl.SwiftOptionDialog;
-import com.hawolt.ui.generic.utility.ChildUIComponent;
-import com.hawolt.ui.generic.utility.HighlightType;
-import com.hawolt.ui.login.SwiftFrameDecoration;
+import generic.component.LFlatButton;
+import generic.component.LTextAlign;
+import generic.dialog.impl.ClientComboOptionDialog;
+import generic.dialog.impl.ClientInputDialog;
+import generic.dialog.impl.ClientNotificationDialog;
+import generic.dialog.impl.ClientOptionDialog;
+import generic.utility.ChildUIComponent;
+import generic.utility.HighlightType;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -24,30 +22,30 @@ import java.util.Arrays;
  * Author: Twitter @hawolt
  **/
 
-public abstract class SwiftDialog extends JDialog implements ActionListener {
+public abstract class ClientDialog extends JDialog implements ActionListener {
     protected final ChildUIComponent main = new ChildUIComponent(new BorderLayout());
     protected final ChildUIComponent container;
     protected final Frame reference;
     protected int selection = -1;
 
 
-    public SwiftDialog(DialogOption... options) {
+    public ClientDialog(DialogOption... options) {
         this(null, options);
     }
 
-    public SwiftDialog(Frame reference, DialogOption... options) {
+    public ClientDialog(Frame reference, DialogOption... options) {
         this(reference, Arrays.stream(options).map(DialogOption::name).toArray(String[]::new));
     }
 
-    public SwiftDialog(Frame reference, String... options) {
+    public ClientDialog(Frame reference, String... options) {
         super((Dialog) null);
         this.setModal(true);
         this.setContentPane(main);
         this.reference = reference;
         this.container = getContainer();
-        this.setIconImage(SwiftRift.logo);
+        //this.setIconImage(SwiftRift.logo);
         this.main.add(container, BorderLayout.CENTER);
-        this.main.add(new SwiftFrameDecoration(this), BorderLayout.NORTH);
+        //this.main.add(new SwiftFrameDecoration(this), BorderLayout.NORTH);
         this.container.setBorder(new EmptyBorder(5, 5, 5, 5));
         this.main.setBorder(new MatteBorder(1, 1, 1, 1, Color.DARK_GRAY));
         ChildUIComponent selection = new ChildUIComponent(new GridLayout(0, Math.max(options.length, 1), 5, 0));
@@ -65,19 +63,19 @@ public abstract class SwiftDialog extends JDialog implements ActionListener {
     }
 
     public static int showMessageDialog(Frame frame, String... lines) {
-        return new SwiftNotificationDialog(frame, lines).configureAndShow().getSelection();
+        return new ClientNotificationDialog(frame, lines).configureAndShow().getSelection();
     }
 
     public static int showOptionDialog(Frame frame, String message, String... options) {
-        return new SwiftOptionDialog(frame, message, options).configureAndShow().getSelection();
+        return new ClientOptionDialog(frame, message, options).configureAndShow().getSelection();
     }
 
     public static int showOptionDialog(Frame frame, String[] messages, String... options) {
-        return new SwiftOptionDialog(frame, messages, options).configureAndShow().getSelection();
+        return new ClientOptionDialog(frame, messages, options).configureAndShow().getSelection();
     }
 
     public static String showInputDialog(Frame frame, String message) {
-        SwiftInputDialog dialog = (SwiftInputDialog) new SwiftInputDialog(frame, message).configureAndShow();
+        ClientInputDialog dialog = (ClientInputDialog) new ClientInputDialog(frame, message).configureAndShow();
         if (dialog.getSelection() != 0) return null;
         return dialog.getInput();
     }
@@ -87,12 +85,12 @@ public abstract class SwiftDialog extends JDialog implements ActionListener {
     }
 
     public static String showComboOptionDialog(Frame frame, String[] messages, String... options) {
-        SwiftComboOptionDialog dialog = (SwiftComboOptionDialog) new SwiftComboOptionDialog(frame, messages, options).configureAndShow();
+        ClientComboOptionDialog dialog = (ClientComboOptionDialog) new ClientComboOptionDialog(frame, messages, options).configureAndShow();
         if (dialog.getSelection() == -1) return null;
         return dialog.getSelectedItem();
     }
 
-    public SwiftDialog configureAndShow() {
+    public ClientDialog configureAndShow() {
         if (reference != null) {
             Rectangle parent = reference.getBounds();
             this.pack();

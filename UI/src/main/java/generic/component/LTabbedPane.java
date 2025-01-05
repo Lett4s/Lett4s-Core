@@ -1,8 +1,8 @@
 package generic.component;
 
-import com.hawolt.ui.generic.themes.ColorPalette;
-import com.hawolt.ui.generic.utility.HighlightType;
-import com.hawolt.util.paint.PaintHelper;
+import paint.PaintHelper;
+import generic.themes.ColorPalette;
+import generic.utility.HighlightType;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

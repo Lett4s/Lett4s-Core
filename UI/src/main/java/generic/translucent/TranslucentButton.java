@@ -1,7 +1,7 @@
 package generic.translucent;
 
-import com.hawolt.ui.generic.component.LTextAlign;
-import com.hawolt.util.paint.PaintHelper;
+import generic.component.LTextAlign;
+import paint.PaintHelper;
 
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicHTML;

@@ -1,8 +1,8 @@
 package generic.component;
 
-import com.hawolt.ui.generic.themes.ColorPalette;
-import com.hawolt.ui.generic.themes.impl.LThemeChoice;
-import com.hawolt.util.paint.PaintHelper;
+import paint.PaintHelper;
+import generic.themes.ColorPalette;
+import generic.themes.impl.LThemeChoice;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,6 +1,6 @@
 package generic.themes.impl;
 
-import com.hawolt.ui.generic.themes.Theme;
+import generic.themes.Theme;
 
 import java.awt.*;
 

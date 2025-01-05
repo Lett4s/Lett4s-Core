@@ -1,12 +1,12 @@
 package generic.dialog.impl;
 
-import com.hawolt.ui.generic.component.LComboBox;
-import com.hawolt.ui.generic.component.LFlatButton;
-import com.hawolt.ui.generic.component.LTextAlign;
-import com.hawolt.ui.generic.component.SwiftLabel;
-import com.hawolt.ui.generic.dialog.SwiftDialog;
-import com.hawolt.ui.generic.utility.ChildUIComponent;
-import com.hawolt.ui.generic.utility.HighlightType;
+import generic.component.LComboBox;
+import generic.component.LFlatButton;
+import generic.component.LTextAlign;
+import generic.component.SwiftLabel;
+import generic.dialog.ClientDialog;
+import generic.utility.ChildUIComponent;
+import generic.utility.HighlightType;
 
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
@@ -18,18 +18,18 @@ import java.awt.*;
  * Author: Twitter @hawolt
  **/
 
-public class SwiftComboOptionDialog extends SwiftDialog {
+public class ClientComboOptionDialog extends ClientDialog {
     private final LComboBox<String> box;
 
-    public SwiftComboOptionDialog(String message, String... options) {
+    public ClientComboOptionDialog(String message, String... options) {
         this(null, message, options);
     }
 
-    public SwiftComboOptionDialog(Frame frame, String message, String... options) {
+    public ClientComboOptionDialog(Frame frame, String message, String... options) {
         this(frame, new String[]{message}, options);
     }
 
-    public SwiftComboOptionDialog(Frame frame, String[] lines, String... options) {
+    public ClientComboOptionDialog(Frame frame, String[] lines, String... options) {
         super(frame, new String[0]);
         StringBuilder builder = new StringBuilder();
         builder.append("<html><div style='text-align: center;'>");

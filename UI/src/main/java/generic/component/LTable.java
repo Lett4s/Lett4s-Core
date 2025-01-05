@@ -1,7 +1,7 @@
 package generic.component;
 
-import com.hawolt.ui.generic.themes.ColorPalette;
-import com.hawolt.ui.generic.themes.impl.LThemeChoice;
+import generic.themes.ColorPalette;
+import generic.themes.impl.LThemeChoice;
 
 import javax.swing.*;
 import javax.swing.table.TableModel;

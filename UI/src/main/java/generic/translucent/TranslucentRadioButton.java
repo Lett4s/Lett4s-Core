@@ -1,7 +1,7 @@
 package generic.translucent;
 
-import com.hawolt.ui.generic.component.LTextAlign;
-import com.hawolt.ui.generic.utility.HighlightType;
+import generic.component.LTextAlign;
+import generic.utility.HighlightType;
 
 import java.awt.*;
 import java.awt.geom.Area;

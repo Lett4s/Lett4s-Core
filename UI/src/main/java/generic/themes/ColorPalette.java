@@ -1,6 +1,6 @@
 package generic.themes;
 
-import com.hawolt.ui.generic.themes.impl.*;
+import generic.themes.impl.*;
 
 import java.awt.*;
 import java.beans.PropertyChangeListener;

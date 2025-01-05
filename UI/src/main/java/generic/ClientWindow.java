@@ -1,0 +1,63 @@
+package generic;
+
+import generic.dialog.ClientDialog;
+import generic.utility.WindowCloseHandler;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowStateListener;
+
+public class ClientWindow implements WindowStateListener {
+
+    private JFrame root;
+
+    public ClientWindow(String title) {
+        this.root = new JFrame();
+        this.root.setTitle(title);
+        this.root.addWindowStateListener(this);
+        this.root.addWindowListener(new WindowCloseHandler(this));
+        this.root.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+    }
+
+    @Override
+    public void windowStateChanged(WindowEvent e) {
+        if (e.getNewState() == Frame.MAXIMIZED_BOTH) {
+
+        }
+    }
+
+    public static Frame getMainParent() {
+        Frame[] frames = Frame.getFrames();
+        return frames.length > 0 ? frames[0] : null;
+    }
+
+    public static int showMessageDialog(String... lines) {
+        return ClientDialog.showMessageDialog(getMainParent(), lines);
+    }
+
+    public static int showOptionDialog(String message, String... options) {
+        return ClientDialog.showOptionDialog(getMainParent(), message, options);
+    }
+
+    public static int showOptionDialog(String[] messages, String... options) {
+        return ClientDialog.showOptionDialog(getMainParent(), messages, options);
+    }
+
+    public static String showComboOptionDialog(String message, String... options) {
+        return ClientDialog.showComboOptionDialog(getMainParent(), message, options);
+    }
+
+    public static String showComboOptionDialog(String[] messages, String... options) {
+        return ClientDialog.showComboOptionDialog(getMainParent(), messages, options);
+    }
+
+    public static String showInputDialog(String message) {
+        return ClientDialog.showInputDialog(getMainParent(), message);
+    }
+
+    public JFrame getRoot() {
+        return root;
+    }
+
+}

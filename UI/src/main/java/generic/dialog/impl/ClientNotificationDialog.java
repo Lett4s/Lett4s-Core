@@ -1,8 +1,9 @@
 package generic.dialog.impl;
 
-import com.hawolt.ui.generic.component.SwiftLabel;
-import com.hawolt.ui.generic.dialog.SwiftDialog;
-import com.hawolt.ui.generic.utility.ChildUIComponent;
+import generic.component.SwiftLabel;
+import generic.dialog.DialogOption;
+import generic.dialog.ClientDialog;
+import generic.utility.ChildUIComponent;
 
 import java.awt.*;
 
@@ -11,17 +12,13 @@ import java.awt.*;
  * Author: Twitter @hawolt
  **/
 
-public class SwiftOptionDialog extends SwiftDialog {
-    public SwiftOptionDialog(String message, String... options) {
-        this(null, message, options);
+public class ClientNotificationDialog extends ClientDialog {
+    public ClientNotificationDialog(String... lines) {
+        this(null, lines);
     }
 
-    public SwiftOptionDialog(Frame frame, String message, String... options) {
-        this(frame, new String[]{message}, options);
-    }
-
-    public SwiftOptionDialog(Frame frame, String[] lines, String... options) {
-        super(frame, options);
+    public ClientNotificationDialog(Frame frame, String... lines) {
+        super(frame, DialogOption.OK);
         StringBuilder builder = new StringBuilder();
         builder.append("<html><div style='text-align: center;'>");
         for (int i = 0; i < lines.length; i++) {

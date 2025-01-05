@@ -1,6 +1,6 @@
 package generic.component;
 
-import com.hawolt.ui.generic.themes.ColorPalette;
+import generic.themes.ColorPalette;
 
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;

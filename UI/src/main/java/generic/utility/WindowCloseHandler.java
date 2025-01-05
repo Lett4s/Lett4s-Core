@@ -1,9 +1,7 @@
 package generic.utility;
 
-import com.hawolt.SwiftRift;
-import com.hawolt.util.settings.SettingManager;
-import com.hawolt.util.settings.SettingService;
-import com.hawolt.util.settings.SettingType;
+import generic.ClientWindow;
+import generic.dialog.ClientDialog;
 
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
@@ -16,27 +14,23 @@ import java.awt.event.WindowEvent;
 
 public class WindowCloseHandler extends WindowAdapter {
 
-    private final SwiftRift swiftRift;
+    private final ClientWindow clientWindow;
 
-    public WindowCloseHandler(SwiftRift swiftRift) {
-        this.swiftRift = swiftRift;
+    public WindowCloseHandler(ClientWindow clientWindow) {
+        this.clientWindow = clientWindow;
     }
 
     @Override
     public void windowClosing(WindowEvent e) {
         super.windowClosing(e);
-        if (swiftRift.getLeagueClient() == null) {
-            swiftRift.getRoot().setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        } else {
-            int option = SwiftRift.showOptionDialog(
-                    "Do you want to exit or logout?",
-                    "LOGOUT", "EXIT", "CANCEL"
-            );
-            if (option == 0) {
-                SettingService service = new SettingManager();
-                service.write(SettingType.CLIENT, "remember", false);
-            }
-            if (option != 2) swiftRift.getRoot().setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        int option = ClientWindow.showOptionDialog(
+                "Do you want to exit or logout?",
+                "LOGOUT", "EXIT", "CANCEL"
+        );
+        if (option == 0) {
+
         }
+        if (option != 2) clientWindow.getRoot().setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
+
 }

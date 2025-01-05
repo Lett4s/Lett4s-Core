@@ -1,9 +1,9 @@
 package generic.dialog.impl;
 
-import com.hawolt.ui.generic.component.LHintTextField;
-import com.hawolt.ui.generic.component.SwiftLabel;
-import com.hawolt.ui.generic.dialog.SwiftDialog;
-import com.hawolt.ui.generic.utility.ChildUIComponent;
+import generic.component.LHintTextField;
+import generic.component.SwiftLabel;
+import generic.dialog.ClientDialog;
+import generic.utility.ChildUIComponent;
 
 import java.awt.*;
 
@@ -12,18 +12,18 @@ import java.awt.*;
  * Author: Twitter @hawolt
  **/
 
-public class SwiftInputDialog extends SwiftDialog {
+public class ClientInputDialog extends ClientDialog {
     private final LHintTextField input;
 
-    public SwiftInputDialog(String message) {
+    public ClientInputDialog(String message) {
         this(null, message);
     }
 
-    public SwiftInputDialog(Frame frame, String message) {
+    public ClientInputDialog(Frame frame, String message) {
         this(frame, message, "OK", "CANCEL");
     }
 
-    public SwiftInputDialog(Frame frame, String message, String... options) {
+    public ClientInputDialog(Frame frame, String message, String... options) {
         super(frame, options);
         String builder = "<html><div style='text-align: center;'>" + message + "</div></html>";
         container.add(new SwiftLabel(builder), BorderLayout.NORTH);

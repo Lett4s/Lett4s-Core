@@ -1,7 +1,7 @@
 package generic.utility;
 
-import com.hawolt.ui.generic.themes.ColorPalette;
-import com.hawolt.ui.generic.themes.impl.LThemeChoice;
+import generic.themes.ColorPalette;
+import generic.themes.impl.LThemeChoice;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,7 +20,7 @@ public class MainUIComponent extends JPanel implements PropertyChangeListener {
     protected Container container;
 
     public MainUIComponent(JFrame frame) {
-        ColorPalette.addThemeListener(this);
+        generic.themes.ColorPalette.addThemeListener(this);
         this.frame = frame;
         this.container = frame.getContentPane();
         this.container.removeAll();
