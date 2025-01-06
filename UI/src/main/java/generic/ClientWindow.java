@@ -2,14 +2,20 @@ package generic;
 
 import generic.dialog.ClientDialog;
 import generic.utility.WindowCloseHandler;
+import util.ExecutorManager;
+import util.settings.SettingService;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowStateListener;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class ClientWindow implements WindowStateListener {
 
+    public static final ExecutorService service = ExecutorManager.registerService("pool", Executors.newCachedThreadPool());
+    private SettingService settingService;
     private JFrame root;
 
     public ClientWindow(String title) {
@@ -58,6 +64,10 @@ public class ClientWindow implements WindowStateListener {
 
     public JFrame getRoot() {
         return root;
+    }
+
+    public SettingService getSettingService() {
+        return settingService;
     }
 
 }

@@ -24,13 +24,10 @@ public class WindowCloseHandler extends WindowAdapter {
     public void windowClosing(WindowEvent e) {
         super.windowClosing(e);
         int option = ClientWindow.showOptionDialog(
-                "Do you want to exit or logout?",
-                "LOGOUT", "EXIT", "CANCEL"
+                "Do you want to exit?",
+                "EXIT", "CANCEL"
         );
-        if (option == 0) {
-
-        }
-        if (option != 2) clientWindow.getRoot().setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        if (option != 1) clientWindow.getRoot().setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
 }
