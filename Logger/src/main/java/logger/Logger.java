@@ -18,7 +18,7 @@ public class Logger {
     private static boolean LOGFILE;
 
 
-    static {
+    public static void startLogging() {
         try {
             Logger.WRITER = new FileWriter(TARGET_DIRECTORY.resolve(LOG_FILE_FORMAT.format(new Date())).toFile());
         } catch (IOException ignored) {
@@ -38,28 +38,20 @@ public class Logger {
         }
     }
 
-    public static void createLogFile() {
-        Logger.LOGFILE = true;
-    }
-
-    public static void log(String info) {
-        log(LogType.LOG, info);
-    }
-
     public static void info(String info, Object... o) {
-        log(LogType.INFO, info);
+        log(LogType.INFO, info, o);
     }
 
     public static void debug(String info, Object... o) {
-        log(LogType.DEBUG, info);
+        log(LogType.DEBUG, info, o);
     }
 
     public static void warn(String info, Object... o) {
-        log(LogType.WARN, info);
+        log(LogType.WARN, info, o);
     }
 
     public static void error(String info, Object... o) {
-        log(LogType.ERROR, info);
+        log(LogType.ERROR, info, o);
     }
 
     public static void fatal(String info, Object... o) {
