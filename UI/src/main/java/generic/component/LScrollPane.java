@@ -13,8 +13,8 @@ import java.util.Objects;
 public class LScrollPane extends JScrollPane implements PropertyChangeListener {
     public LScrollPane(Component view) {
         ColorPalette.addThemeListener(this);
-        getVerticalScrollBar().setUI(new LScrollBarUI());
-        getHorizontalScrollBar().setUI(new LScrollBarUI());
+        getVerticalScrollBar().setUI(new LScrollBarUI(this));
+        getHorizontalScrollBar().setUI(new LScrollBarUI(this));
         setBorder(new EmptyBorder(0, 0, 0, 0));
         setViewportView(view);
         setBackground(ColorPalette.backgroundColor);
