@@ -1,7 +1,6 @@
 package generic.utility;
 
-import generic.ClientWindow;
-import generic.dialog.ClientDialog;
+import generic.Client;
 
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
@@ -14,20 +13,20 @@ import java.awt.event.WindowEvent;
 
 public class WindowCloseHandler extends WindowAdapter {
 
-    private final ClientWindow clientWindow;
+    private final Client client;
 
-    public WindowCloseHandler(ClientWindow clientWindow) {
-        this.clientWindow = clientWindow;
+    public WindowCloseHandler(Client client) {
+        this.client = client;
     }
 
     @Override
     public void windowClosing(WindowEvent e) {
         super.windowClosing(e);
-        int option = ClientWindow.showOptionDialog(
+        int option = Client.showOptionDialog(
                 "Do you want to exit?",
                 "EXIT", "CANCEL"
         );
-        if (option != 1) clientWindow.getRoot().setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        if (option != 1) client.getRoot().setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
 }

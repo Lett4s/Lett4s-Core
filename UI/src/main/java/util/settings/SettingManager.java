@@ -1,6 +1,6 @@
 package util.settings;
 
-import generic.ClientWindow;
+import generic.Client;
 import logger.Logger;
 import org.json.JSONObject;
 import util.DynamicObject;
@@ -68,7 +68,7 @@ public class SettingManager implements SettingService {
         List<SettingListener<?>> list = map.get(name);
         if (list == null) return;
         for (SettingListener<?> listener : list) {
-            ClientWindow.service.execute(() -> listener.onSettingWrite(name, Unsafe.cast(value)));
+            Client.service.execute(() -> listener.onSettingWrite(name, Unsafe.cast(value)));
         }
     }
 

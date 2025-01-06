@@ -12,13 +12,13 @@ import java.awt.event.WindowStateListener;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class ClientWindow implements WindowStateListener {
+public class Client implements WindowStateListener {
 
     public static final ExecutorService service = ExecutorManager.registerService("pool", Executors.newCachedThreadPool());
     private SettingService settingService;
-    private JFrame root;
+    private final JFrame root;
 
-    public ClientWindow(String title) {
+    public Client(String title) {
         this.root = new JFrame();
         this.root.setTitle(title);
         this.root.addWindowStateListener(this);
@@ -68,6 +68,10 @@ public class ClientWindow implements WindowStateListener {
 
     public SettingService getSettingService() {
         return settingService;
+    }
+
+    public void setSettingService(SettingService settingService) {
+        this.settingService = settingService;
     }
 
 }
