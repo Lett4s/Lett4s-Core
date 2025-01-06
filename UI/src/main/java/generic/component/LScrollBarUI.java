@@ -24,9 +24,9 @@ public class LScrollBarUI extends BasicScrollBarUI implements PropertyChangeList
     private boolean hover;
     private boolean press;
 
-    public LScrollBarUI(JComponent component) {
+    public LScrollBarUI() {
         ColorPalette.addThemeListener(this);
-        installUI(component);
+        start(true);
         mouseEvent = new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -60,7 +60,7 @@ public class LScrollBarUI extends BasicScrollBarUI implements PropertyChangeList
     }
 
     public static ComponentUI createUI(JComponent c) {
-        return new LScrollBarUI(c);
+        return new LScrollBarUI();
     }
 
     @Override
