@@ -84,6 +84,14 @@ public class ColorPalette {
         themeProperty.firePropertyChange("currentThemeChoice", old, currentThemeChoice);
     }
 
+    public static Color getBackgroundColor() {
+        return backgroundColor;
+    }
+
+    public static Color getAccentColor() {
+        return accentColor;
+    }
+
     public static Color getNewColor(Color color, LThemeChoice old) {
         Theme oldTheme = null;
         Theme newTheme = null;

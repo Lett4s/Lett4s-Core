@@ -1,6 +1,9 @@
 package generic.utility;
 
 import generic.Client;
+import util.settings.SettingManager;
+import util.settings.SettingService;
+import util.settings.SettingType;
 
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
@@ -13,6 +16,7 @@ import java.awt.event.WindowEvent;
 
 public class WindowCloseHandler extends WindowAdapter {
 
+    private boolean logoutButtonEnabled = false;
     private final Client client;
 
     public WindowCloseHandler(Client client) {
@@ -22,11 +26,27 @@ public class WindowCloseHandler extends WindowAdapter {
     @Override
     public void windowClosing(WindowEvent e) {
         super.windowClosing(e);
-        int option = Client.showOptionDialog(
-                "Do you want to exit?",
-                "EXIT", "CANCEL"
-        );
-        if (option != 1) client.getRoot().setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        if (logoutButtonEnabled) {
+            int option = Client.showOptionDialog(
+                    "Do you want to exit?",
+                    "LOGOUT", "EXIT", "CANCEL"
+            );
+            if (option == 0) {
+                SettingService service = new SettingManager();
+                service.write(SettingType.CLIENT, "remember", false);
+            }
+            if (option != 2) client.getRoot().setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        } else {
+            int option = Client.showOptionDialog(
+                    "Do you want to exit?",
+                    "EXIT", "CANCEL"
+            );
+            if (option != 1) client.getRoot().setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        }
+    }
+
+    public void toggleLogoutButton() {
+        this.logoutButtonEnabled = !logoutButtonEnabled;
     }
 
 }

@@ -1,6 +1,7 @@
 package paint.animation.impl.impl;
 
 import generic.themes.ColorPalette;
+import generic.themes.impl.LThemeChoice;
 import paint.animation.Animation;
 import paint.animation.impl.AbstractLinearRepeatingAnimation;
 
@@ -8,18 +9,20 @@ import java.awt.*;
 import java.awt.geom.Arc2D;
 import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 /**
  * Created: 14/09/2023 13:51
  * Author: Twitter @hawolt
  **/
 
-public class SpinningAnimation extends AbstractLinearRepeatingAnimation {
+public class SpinningAnimation extends AbstractLinearRepeatingAnimation implements PropertyChangeListener {
+    private Color background = ColorPalette.backgroundColor, foreground = Color.WHITE;
     private static final double MAX_ARC_VALUE = 360;
-    private final Color background = ColorPalette.backgroundColor, foreground = Color.WHITE;
+    private double animationIndex = MAX_ARC_VALUE;
     private final int fragments, extend;
     private final int[] offsets;
-    private double animationIndex = MAX_ARC_VALUE;
 
     public SpinningAnimation(int fragments, int extend) {
         this(fragments, extend, 1f);
@@ -31,6 +34,7 @@ public class SpinningAnimation extends AbstractLinearRepeatingAnimation {
 
     public SpinningAnimation(int fragments, int extend, float animationSpeed, short fps) {
         super(animationSpeed, fps);
+        ColorPalette.addThemeListener(this);
         this.extend = extend;
         this.fragments = fragments;
         this.offsets = new int[fragments];
@@ -97,4 +101,12 @@ public class SpinningAnimation extends AbstractLinearRepeatingAnimation {
             offsets[i] = ((int) Math.ceil(animationIndex)) + (i * spacing);
         }
     }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        LThemeChoice old = (LThemeChoice) evt.getOldValue();
+        this.background = (ColorPalette.getNewColor(ColorPalette.getBackgroundColor(), old));
+        this.foreground = (ColorPalette.getNewColor(ColorPalette.getAccentColor(), old));
+    }
+
 }
