@@ -15,6 +15,7 @@ import java.util.concurrent.Executors;
 public class Client implements WindowStateListener {
 
     public static final ExecutorService service = ExecutorManager.registerService("pool", Executors.newCachedThreadPool());
+    private final WindowCloseHandler windowCloseHandler;
     private SettingService settingService;
     private final JFrame root;
 
@@ -22,7 +23,7 @@ public class Client implements WindowStateListener {
         this.root = new JFrame();
         this.root.setTitle(title);
         this.root.addWindowStateListener(this);
-        this.root.addWindowListener(new WindowCloseHandler(this));
+        this.root.addWindowListener(windowCloseHandler = new WindowCloseHandler(this));
         this.root.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
     }
 
@@ -64,6 +65,10 @@ public class Client implements WindowStateListener {
 
     public JFrame getRoot() {
         return root;
+    }
+
+    public WindowCloseHandler getWindowCloseHandler() {
+        return windowCloseHandler;
     }
 
     public SettingService getSettingService() {
