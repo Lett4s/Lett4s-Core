@@ -10,8 +10,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>Logger</module>
-        <module>HTTP</module>
         <module>UI</module>
     </modules>
 
@@ -27,5 +25,13 @@
             <url>https://jitpack.io</url>
         </repository>
     </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.github.hawolt.custom-core</groupId>
+            <artifactId>logger</artifactId>
+            <version>90d7c80857</version>
+        </dependency>
+    </dependencies>
 
 </project>

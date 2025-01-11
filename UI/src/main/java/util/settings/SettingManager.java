@@ -1,7 +1,7 @@
 package util.settings;
 
+import com.hawolt.logger.Logger;
 import generic.Client;
-import logger.Logger;
 import org.json.JSONObject;
 import util.DynamicObject;
 import util.StaticConstant;
