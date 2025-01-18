@@ -1,9 +1,12 @@
 package generic;
 
 import generic.dialog.ClientDialog;
+import generic.login.ILoginCallback;
+import generic.login.LoginUI;
 import generic.utility.WindowCloseHandler;
 import util.ExecutorManager;
 import util.settings.SettingService;
+import util.settings.SettingType;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,12 +15,13 @@ import java.awt.event.WindowStateListener;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class Client implements WindowStateListener {
+public class Client implements WindowStateListener, ILoginCallback {
 
     public static final ExecutorService service = ExecutorManager.registerService("pool", Executors.newCachedThreadPool());
     private final WindowCloseHandler windowCloseHandler;
     private SettingService settingService;
     private final JFrame root;
+    private LoginUI loginUI;
 
     public Client(String title) {
         this.root = new JFrame();
@@ -67,6 +71,14 @@ public class Client implements WindowStateListener {
         return root;
     }
 
+    public void createLoginUI() {
+        loginUI = LoginUI.create(this);
+    }
+
+    public LoginUI getLoginUI() {
+        return loginUI;
+    }
+
     public WindowCloseHandler getWindowCloseHandler() {
         return windowCloseHandler;
     }
@@ -79,4 +91,14 @@ public class Client implements WindowStateListener {
         this.settingService = settingService;
     }
 
+
+    @Override
+    public void onLogin(String username, String password) {
+        if (loginUI.getRememberMe().isSelected()) {
+            settingService.write(SettingType.CLIENT, "remember", true);
+            settingService.write(SettingType.CLIENT, "username", username);
+        }
+        this.settingService.set(username);
+        this.root.setVisible(true);
+    }
 }

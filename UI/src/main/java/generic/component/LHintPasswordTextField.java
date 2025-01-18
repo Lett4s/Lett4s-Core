@@ -34,7 +34,7 @@ public class LHintPasswordTextField extends JPasswordField implements PropertyCh
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        if (!getText().isEmpty()) return;
+        if (getPassword().length != 0) return;
         int height = getHeight();
         Graphics2D graphics2D = (Graphics2D) g;
         graphics2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);

@@ -1,6 +1,7 @@
 package generic.utility;
 
 import generic.Client;
+import generic.login.InternalLoginState;
 import util.settings.SettingManager;
 import util.settings.SettingService;
 import util.settings.SettingType;
@@ -34,8 +35,10 @@ public class WindowCloseHandler extends WindowAdapter {
             if (option == 0) {
                 SettingService service = new SettingManager();
                 service.write(SettingType.CLIENT, "remember", false);
+                service.write(SettingType.CLIENT, "username", null);
+                client.getLoginUI().toggle(InternalLoginState.LOGIN);
             }
-            if (option != 2) client.getRoot().setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+            if (option == 1) client.getRoot().setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         } else {
             int option = Client.showOptionDialog(
                     "Do you want to exit?",
