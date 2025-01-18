@@ -19,6 +19,7 @@ public class Client implements WindowStateListener {
     public static final ExecutorService service = ExecutorManager.registerService("pool", Executors.newCachedThreadPool());
     private final WindowCloseHandler windowCloseHandler;
     private SettingService settingService;
+    private ILoginCallback callback;
     private final JFrame root;
     private LoginUI loginUI;
 
@@ -70,7 +71,11 @@ public class Client implements WindowStateListener {
         return root;
     }
 
-    public void createLoginUI(ILoginCallback callback) {
+    public void setILoginCallback(ILoginCallback callback) {
+        this.callback = callback;
+    }
+
+    public void createLoginUI() {
         loginUI = LoginUI.create(this, callback);
     }
 

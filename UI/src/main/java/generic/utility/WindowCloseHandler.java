@@ -2,6 +2,7 @@ package generic.utility;
 
 import generic.Client;
 import generic.login.InternalLoginState;
+import util.settings.ClientSettings;
 import util.settings.SettingManager;
 import util.settings.SettingService;
 import util.settings.SettingType;
@@ -33,10 +34,7 @@ public class WindowCloseHandler extends WindowAdapter {
                     "LOGOUT", "EXIT", "CANCEL"
             );
             if (option == 0) {
-                SettingService service = new SettingManager();
-                service.write(SettingType.CLIENT, "remember", false);
-                service.write(SettingType.CLIENT, "username", null);
-                client.getLoginUI().toggle(InternalLoginState.LOGIN);
+                logOut();
             }
             if (option == 1) client.getRoot().setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         } else {
@@ -50,6 +48,21 @@ public class WindowCloseHandler extends WindowAdapter {
 
     public void toggleLogoutButton() {
         this.logoutButtonEnabled = !logoutButtonEnabled;
+    }
+
+    private void logOut() {
+        SettingService service = new SettingManager();
+        service.write(SettingType.CLIENT, "remember", false);
+        service.write(SettingType.CLIENT, "username", null);
+        client.getRoot().dispose();
+        client.createLoginUI();
+        client.getLoginUI().getRememberMe().setSelected(service.getClientSettings().isRememberMe());
+        client.getLoginUI().toggle(InternalLoginState.LOADING);
+        if (service.getClientSettings().isRememberMe()) {
+            service.set(service.getClientSettings().getRememberMeUsername());
+        }
+        client.getLoginUI().toggle(InternalLoginState.LOGIN);
+        client.getRoot().setVisible(true);
     }
 
 }
