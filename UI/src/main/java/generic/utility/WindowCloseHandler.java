@@ -55,9 +55,9 @@ public class WindowCloseHandler extends WindowAdapter {
     }
 
     private void logOut() {
-        SettingService service = new SettingManager();
+        SettingService service = client.getSettingService();
         service.write(SettingType.CLIENT, "remember", false);
-        service.write(SettingType.CLIENT, "username", null);
+        service.write(SettingType.CLIENT, "username", "");
         client.getRoot().dispose();
         toggleLogoutButton();
         client.createLoginUI();
