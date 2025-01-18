@@ -30,15 +30,6 @@ public class Client implements WindowStateListener {
         this.root.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
     }
 
-    public Client(String title, ILoginCallback callback) {
-        this.root = new JFrame();
-        this.root.setTitle(title);
-        this.root.addWindowStateListener(this);
-        this.loginUI = LoginUI.create(this, callback);
-        this.root.addWindowListener(windowCloseHandler = new WindowCloseHandler(this));
-        this.root.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-    }
-
     @Override
     public void windowStateChanged(WindowEvent e) {
         if (e.getNewState() == Frame.MAXIMIZED_BOTH) {
@@ -77,6 +68,10 @@ public class Client implements WindowStateListener {
 
     public JFrame getRoot() {
         return root;
+    }
+
+    public void createLoginUI(ILoginCallback callback) {
+        loginUI = LoginUI.create(this, callback);
     }
 
     public LoginUI getLoginUI() {
