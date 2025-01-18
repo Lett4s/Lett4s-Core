@@ -46,6 +46,10 @@ public class WindowCloseHandler extends WindowAdapter {
         }
     }
 
+    public boolean isLogoutButtonEnabled() {
+        return logoutButtonEnabled;
+    }
+
     public void toggleLogoutButton() {
         this.logoutButtonEnabled = !logoutButtonEnabled;
     }
