@@ -34,7 +34,7 @@ public class LoginUI extends MainUIComponent implements ActionListener {
     private final JCheckBox rememberMe;
     private final JButton login;
 
-    private LoginUI(Client client) {
+    private LoginUI(Client client, ILoginCallback callback) {
         super(client.getRoot());
         this.setLayout(new BorderLayout());
         client.getRoot().setUndecorated(true);
@@ -97,12 +97,12 @@ public class LoginUI extends MainUIComponent implements ActionListener {
         username.addKeyListener(enterKeyAdapter);
         password.addKeyListener(enterKeyAdapter);
 
-        this.callback = client;
+        this.callback = callback;
         this.init();
     }
 
-    public static LoginUI create(Client window) {
-        return new LoginUI(window);
+    public static LoginUI create(Client window, ILoginCallback callback) {
+        return new LoginUI(window, callback);
     }
 
     public void toggle(InternalLoginState state) {

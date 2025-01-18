@@ -6,7 +6,6 @@ import generic.login.LoginUI;
 import generic.utility.WindowCloseHandler;
 import util.ExecutorManager;
 import util.settings.SettingService;
-import util.settings.SettingType;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +14,7 @@ import java.awt.event.WindowStateListener;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class Client implements WindowStateListener, ILoginCallback {
+public class Client implements WindowStateListener {
 
     public static final ExecutorService service = ExecutorManager.registerService("pool", Executors.newCachedThreadPool());
     private final WindowCloseHandler windowCloseHandler;
@@ -27,6 +26,15 @@ public class Client implements WindowStateListener, ILoginCallback {
         this.root = new JFrame();
         this.root.setTitle(title);
         this.root.addWindowStateListener(this);
+        this.root.addWindowListener(windowCloseHandler = new WindowCloseHandler(this));
+        this.root.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+    }
+
+    public Client(String title, ILoginCallback callback) {
+        this.root = new JFrame();
+        this.root.setTitle(title);
+        this.root.addWindowStateListener(this);
+        this.loginUI = LoginUI.create(this, callback);
         this.root.addWindowListener(windowCloseHandler = new WindowCloseHandler(this));
         this.root.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
     }
@@ -71,10 +79,6 @@ public class Client implements WindowStateListener, ILoginCallback {
         return root;
     }
 
-    public void createLoginUI() {
-        loginUI = LoginUI.create(this);
-    }
-
     public LoginUI getLoginUI() {
         return loginUI;
     }
@@ -91,14 +95,4 @@ public class Client implements WindowStateListener, ILoginCallback {
         this.settingService = settingService;
     }
 
-
-    @Override
-    public void onLogin(String username, String password) {
-        if (loginUI.getRememberMe().isSelected()) {
-            settingService.write(SettingType.CLIENT, "remember", true);
-            settingService.write(SettingType.CLIENT, "username", username);
-        }
-        this.settingService.set(username);
-        this.root.setVisible(true);
-    }
 }
