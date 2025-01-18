@@ -2,8 +2,6 @@ package generic.utility;
 
 import generic.Client;
 import generic.login.InternalLoginState;
-import util.settings.ClientSettings;
-import util.settings.SettingManager;
 import util.settings.SettingService;
 import util.settings.SettingType;
 

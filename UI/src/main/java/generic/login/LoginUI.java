@@ -121,7 +121,7 @@ public class LoginUI extends MainUIComponent implements ActionListener {
         } else {
             this.toggle(InternalLoginState.LOADING);
             String user = username.getText();
-            Client.service.execute(() -> callback.onLogin(user, pass));
+            Client.service.execute(() -> callback.onLogin(rememberMe.isSelected(), user, pass));
         }
     }
 

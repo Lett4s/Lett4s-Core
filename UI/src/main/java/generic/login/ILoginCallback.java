@@ -6,5 +6,5 @@ package generic.login;
  **/
 
 public interface ILoginCallback {
-    void onLogin(String username, String password);
+    void onLogin(boolean rememberMe, String username, String password);
 }
