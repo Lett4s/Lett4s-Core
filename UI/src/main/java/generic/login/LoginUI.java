@@ -37,6 +37,7 @@ public class LoginUI extends MainUIComponent implements ActionListener {
     private final JCheckBox rememberMe;
     private final LHintTextField tag;
     private final JButton register;
+    private final JButton cancel;
     private final JButton login;
 
     private LoginUI(Client client, ILoginCallback callback) {
@@ -64,7 +65,7 @@ public class LoginUI extends MainUIComponent implements ActionListener {
         if (settings.isRememberMe()) this.username.setText(settings.getRememberMeUsername());
         this.password = new LHintPasswordTextField("password");
         this.login = new LFlatButton("Login", LTextAlign.CENTER, HighlightType.COMPONENT);
-        this.login.setActionCommand(InternalLoginState.LOGIN.name());
+        this.login.setActionCommand("login");
         this.rememberMe = new LFlatCheckBox("Remember Me");
         this.rememberMe.setForeground(Color.WHITE);
         this.rememberMe.setFocusPainted(false);
@@ -82,17 +83,19 @@ public class LoginUI extends MainUIComponent implements ActionListener {
         login.add(this.login);
         parent.add(InternalLoginState.LOGIN.name(), login);
 
-        ChildUIComponent userTagComponent = new ChildUIComponent(new GridLayout(0, 3, 0, 5));
+        ChildUIComponent userTagComponent = new ChildUIComponent(new GridLayout(0, 3, 15, 0));
         ChildUIComponent register = new ChildUIComponent(new GridLayout(0, 1, 0, 5));
         userTagComponent.setBorder(new EmptyBorder(5, 5, 5, 5));
         register.setBorder(new EmptyBorder(5, 5, 5, 5));
 
         this.register = new LFlatButton("Register", LTextAlign.CENTER, HighlightType.COMPONENT);
-        this.register.setActionCommand(InternalLoginState.REGISTER.name());
+        this.register.setActionCommand("register");
+        this.cancel = new LFlatButton("Cancel", LTextAlign.CENTER, HighlightType.COMPONENT);
+        this.cancel.setActionCommand("cancel");
         this.passwordRegister = new LHintPasswordTextField("password");
         this.usernameRegister = new LHintTextField("username");
         this.tag = new LHintTextField("tag", 5);
-        this.emailRegister = new LHintTextField("e-mail");
+        this.emailRegister = new LHintTextField("e-mail (optional)");
         JLabel usernameLabelReg = new JLabel("Username");
         usernameLabelReg.setForeground(Color.WHITE);
         JLabel passwordLabelReg = new JLabel("Password");
@@ -112,10 +115,12 @@ public class LoginUI extends MainUIComponent implements ActionListener {
         register.add(passwordLabelReg);
         register.add(passwordRegister);
         register.add(this.register);
+        register.add(this.cancel);
         parent.add(InternalLoginState.REGISTER.name(), register);
 
         this.setPreferredSize(new Dimension(300, 300));
         this.login.addActionListener(this);
+        this.cancel.addActionListener(this);
         this.register.addActionListener(this);
         this.container.add(this);
 
@@ -132,7 +137,7 @@ public class LoginUI extends MainUIComponent implements ActionListener {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() != KeyEvent.VK_ENTER) return;
-                actionPerformed(null);
+                actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "login"));
             }
         };
 
@@ -157,20 +162,36 @@ public class LoginUI extends MainUIComponent implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String pass = new String(password.getPassword());
-        if (pass.isEmpty()) {
-            Client.showMessageDialog("Password can not be blank");
-        } else {
-            String user = username.getText();
-            if (e.getActionCommand().equals(InternalLoginState.LOGIN.name())) {
-                this.toggle(InternalLoginState.LOADING);
-                Client.service.execute(() -> callback.onLogin(rememberMe.isSelected(), user, pass));
-            } else if (e.getActionCommand().equals(InternalLoginState.REGISTER.name())) {
-                this.toggle(InternalLoginState.REGISTER);
-                String email = this.emailRegister.getText();
-                String tag = this.tag.getText();
-                Client.service.execute(() -> callback.onRegister(email, user, tag, pass));
-            }
+        String pass;
+        String user;
+        String tag;
+        String email;
+        switch (e.getActionCommand()) {
+            case "cancel":
+                toggle(InternalLoginState.LOGIN);
+                break;
+            case "login":
+                pass = new String(password.getPassword());
+                if (pass.isEmpty()) {
+                    Client.showMessageDialog("Password can not be blank");
+                } else {
+                    user = username.getText();
+                    this.toggle(InternalLoginState.LOADING);
+                    Client.service.execute(() -> callback.onLogin(rememberMe.isSelected(), user, pass));
+                }
+                break;
+            case "register":
+                tag = this.tag.getText();
+                user = usernameRegister.getText();
+                pass = new String(passwordRegister.getPassword());
+                if (tag.isEmpty() || user.isEmpty() || pass.isEmpty()) {
+                    Client.showMessageDialog("All mandatory fields must be filled");
+                } else {
+                    email = this.emailRegister.getText();
+                    this.toggle(InternalLoginState.LOADING);
+                    Client.service.execute(() -> callback.onRegister(email, user, tag, pass));
+                }
+                break;
         }
     }
 
