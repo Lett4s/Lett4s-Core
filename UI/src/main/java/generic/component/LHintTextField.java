@@ -8,7 +8,6 @@ import javax.swing.*;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
-import javax.swing.text.AbstractDocument;
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -20,6 +19,7 @@ import java.beans.PropertyChangeListener;
 
 public class LHintTextField extends JTextField implements PropertyChangeListener {
     private final int limitInput;
+    private final boolean tag;
     private final String hint;
 
     private int rounding = 0;
@@ -27,12 +27,13 @@ public class LHintTextField extends JTextField implements PropertyChangeListener
     private boolean roundTL, roundTR, roundBL, roundBR, customRoundArea;
 
     public LHintTextField(String hint) {
-        this(hint, 0);
+        this(hint, 0, false);
     }
 
-    public LHintTextField(String hint, int limitInput) {
+    public LHintTextField(String hint, int limitInput, boolean tag) {
         ColorPalette.addThemeListener(this);
         this.hint = hint;
+        this.tag = tag;
         this.limitInput = Math.max(limitInput, 0);
         this.setForeground(Color.WHITE);
         this.setCaretColor(Color.WHITE);
@@ -69,12 +70,17 @@ public class LHintTextField extends JTextField implements PropertyChangeListener
         else
             graphics2D.fillRect(0,0,getWidth(),getHeight());
         */
-        if (!getText().isEmpty()) return;
         int height = getHeight();
         Graphics2D graphics2D = (Graphics2D) g;
         graphics2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         Insets insets = getInsets();
         FontMetrics fontMetrics = g.getFontMetrics();
+        if (tag) {
+            g.setColor(ColorPalette.textColor);
+            g.drawString("#", insets.left, height / 2 + fontMetrics.getAscent() / 2 - 2);
+        }
+        if (!getText().isEmpty()) return;
+
         int background = getBackground().getRGB();
         int foreground = getForeground().getRGB();
         int mask = 0xFEFEFEFE;
