@@ -83,9 +83,9 @@ public class LoginUI extends MainUIComponent implements ActionListener {
         login.add(this.login);
         parent.add(InternalLoginState.LOGIN.name(), login);
 
-        ChildUIComponent userTagComponent = new ChildUIComponent(new GridLayout(0, 3, 15, 0));
+        ChildUIComponent userTagComponent = new ChildUIComponent(new GridLayout(0, 3, 5, 0));
+        ChildUIComponent buttonComponent = new ChildUIComponent(new GridLayout(0, 2, 5, 0));
         ChildUIComponent register = new ChildUIComponent(new GridLayout(0, 1, 0, 5));
-        userTagComponent.setBorder(new EmptyBorder(5, 5, 5, 5));
         register.setBorder(new EmptyBorder(5, 5, 5, 5));
 
         this.register = new LFlatButton("Register", LTextAlign.CENTER, HighlightType.COMPONENT);
@@ -114,8 +114,9 @@ public class LoginUI extends MainUIComponent implements ActionListener {
         register.add(emailRegister);
         register.add(passwordLabelReg);
         register.add(passwordRegister);
-        register.add(this.register);
-        register.add(this.cancel);
+        buttonComponent.add(this.register);
+        buttonComponent.add(this.cancel);
+        register.add(buttonComponent);
         parent.add(InternalLoginState.REGISTER.name(), register);
 
         this.setPreferredSize(new Dimension(300, 300));
