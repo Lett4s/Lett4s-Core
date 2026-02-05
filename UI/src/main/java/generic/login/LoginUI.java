@@ -103,7 +103,7 @@ public class LoginUI extends MainUIComponent implements ActionListener {
         JLabel emailLabelReg = new JLabel("E-Mail");
         emailLabelReg.setForeground(Color.WHITE);
         LLabel hashTag = new LLabel("#", LTextAlign.CENTER);
-        hashTag.setForeground(Color.WHITE);
+        //hashTag.setForeground(Color.WHITE);
 
         userTagComponent.add(usernameRegister);
         userTagComponent.add(hashTag);

@@ -2,14 +2,14 @@ package generic.component;
 
 import generic.themes.ColorPalette;
 import generic.themes.impl.LThemeChoice;
+import generic.utility.LDocumentSizeFilter;
 
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
+import javax.swing.text.AbstractDocument;
 import java.awt.*;
-import java.awt.event.TextEvent;
-import java.awt.event.TextListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -18,7 +18,7 @@ import java.beans.PropertyChangeListener;
  * Author: Twitter @hawolt
  **/
 
-public class LHintTextField extends JTextField implements PropertyChangeListener, TextListener {
+public class LHintTextField extends JTextField implements PropertyChangeListener {
     private final int limitInput;
     private final String hint;
 
@@ -42,6 +42,10 @@ public class LHintTextField extends JTextField implements PropertyChangeListener
                 new MatteBorder(0, 0, 1, 0, ColorPalette.inputUnderline),
                 new EmptyBorder(5, 5, 5, 5)
         ));
+        if (limitInput > 0) {
+            AbstractDocument doc = (AbstractDocument) this.getDocument();
+            doc.setDocumentFilter(new LDocumentSizeFilter(limitInput));;
+        }
     }
 
     public void setRounding(int rounding) {
@@ -87,12 +91,5 @@ public class LHintTextField extends JTextField implements PropertyChangeListener
                 new MatteBorder(0, 0, 1, 0, ColorPalette.inputUnderline),
                 new EmptyBorder(5, 5, 5, 5)
         ));
-    }
-
-    @Override
-    public void textValueChanged(TextEvent e) {
-        if (limitInput != 0)
-            if (this.getText().length() > limitInput)
-                this.setText(this.getText().substring(0, limitInput-1));
     }
 }
