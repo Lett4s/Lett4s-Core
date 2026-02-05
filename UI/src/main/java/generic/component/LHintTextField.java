@@ -2,7 +2,7 @@ package generic.component;
 
 import generic.themes.ColorPalette;
 import generic.themes.impl.LThemeChoice;
-import generic.utility.LDocumentSizeFilter;
+import generic.utility.LTextFieldLimit;
 
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
@@ -42,9 +42,8 @@ public class LHintTextField extends JTextField implements PropertyChangeListener
                 new MatteBorder(0, 0, 1, 0, ColorPalette.inputUnderline),
                 new EmptyBorder(5, 5, 5, 5)
         ));
-        if (limitInput > 0) {
-            AbstractDocument doc = (AbstractDocument) this.getDocument();
-            doc.setDocumentFilter(new LDocumentSizeFilter(limitInput));;
+        if (this.limitInput > 0) {
+            this.setDocument(new LTextFieldLimit(this.limitInput));
         }
     }
 
