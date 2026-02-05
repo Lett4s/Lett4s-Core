@@ -8,6 +8,8 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 import java.awt.*;
+import java.awt.event.TextEvent;
+import java.awt.event.TextListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -16,7 +18,7 @@ import java.beans.PropertyChangeListener;
  * Author: Twitter @hawolt
  **/
 
-public class LHintTextField extends JTextField implements PropertyChangeListener {
+public class LHintTextField extends JTextField implements PropertyChangeListener, TextListener {
     private final int limitInput;
     private final String hint;
 
@@ -65,8 +67,6 @@ public class LHintTextField extends JTextField implements PropertyChangeListener
             graphics2D.fillRect(0,0,getWidth(),getHeight());
         */
         if (!getText().isEmpty()) return;
-        if (limitInput != 0 && getText().length() > limitInput)
-            setText(getText().substring(0, limitInput-1));
         int height = getHeight();
         Graphics2D graphics2D = (Graphics2D) g;
         graphics2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
@@ -87,5 +87,12 @@ public class LHintTextField extends JTextField implements PropertyChangeListener
                 new MatteBorder(0, 0, 1, 0, ColorPalette.inputUnderline),
                 new EmptyBorder(5, 5, 5, 5)
         ));
+    }
+
+    @Override
+    public void textValueChanged(TextEvent e) {
+        if (limitInput != 0)
+            if (this.getText().length() > limitInput)
+                this.setText(this.getText().substring(0, limitInput-1));
     }
 }
