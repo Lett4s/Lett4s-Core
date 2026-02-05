@@ -102,7 +102,7 @@ public class LoginUI extends MainUIComponent implements ActionListener {
         JLabel hashTag = new JLabel("#");
         hashTag.setForeground(Color.WHITE);
 
-        userTagComponent.add(username);
+        userTagComponent.add(usernameRegister);
         userTagComponent.add(hashTag);
         userTagComponent.add(tag);
         register.add(usernameLabelReg);
@@ -110,7 +110,7 @@ public class LoginUI extends MainUIComponent implements ActionListener {
         register.add(emailLabelReg);
         register.add(emailRegister);
         register.add(passwordLabelReg);
-        register.add(password);
+        register.add(passwordRegister);
         register.add(this.register);
         parent.add(InternalLoginState.REGISTER.name(), register);
 
