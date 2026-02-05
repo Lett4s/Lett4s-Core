@@ -103,6 +103,7 @@ public class LoginUI extends MainUIComponent implements ActionListener {
         JLabel emailLabelReg = new JLabel("E-Mail");
         emailLabelReg.setForeground(Color.WHITE);
         JLabel hashTag = new JLabel("#");
+        hashTag.setPreferredSize(new Dimension(50, 30));
         hashTag.setForeground(Color.WHITE);
 
         userTagComponent.add(usernameRegister);
@@ -119,7 +120,7 @@ public class LoginUI extends MainUIComponent implements ActionListener {
         register.add(buttonComponent);
         parent.add(InternalLoginState.REGISTER.name(), register);
 
-        this.setPreferredSize(new Dimension(300, 300));
+        this.setPreferredSize(new Dimension(300, 400));
         this.login.addActionListener(this);
         this.cancel.addActionListener(this);
         this.register.addActionListener(this);
