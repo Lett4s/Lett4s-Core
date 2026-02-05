@@ -31,7 +31,10 @@ public class LoginUI extends MainUIComponent implements ActionListener {
     private final LHintPasswordTextField password;
     private final LHintTextField username;
     private final ILoginCallback callback;
+    private final LHintTextField email;
     private final JCheckBox rememberMe;
+    private final LHintTextField tag;
+    private final JButton register;
     private final JButton login;
 
     private LoginUI(Client client, ILoginCallback callback) {
@@ -59,7 +62,7 @@ public class LoginUI extends MainUIComponent implements ActionListener {
         if (settings.isRememberMe()) this.username.setText(settings.getRememberMeUsername());
         this.password = new LHintPasswordTextField("password");
         this.login = new LFlatButton("Login", LTextAlign.CENTER, HighlightType.COMPONENT);
-        this.login.setActionCommand("REGULAR");
+        this.login.setActionCommand(InternalLoginState.LOGIN.name());
         this.rememberMe = new LFlatCheckBox("Remember Me");
         this.rememberMe.setForeground(Color.WHITE);
         this.rememberMe.setFocusPainted(false);
@@ -77,13 +80,41 @@ public class LoginUI extends MainUIComponent implements ActionListener {
         login.add(this.login);
         parent.add(InternalLoginState.LOGIN.name(), login);
 
+        ChildUIComponent userTagComponent = new ChildUIComponent(new GridLayout(0, 3, 0, 5));
+        ChildUIComponent register = new ChildUIComponent(new GridLayout(0, 1, 0, 5));
+        userTagComponent.setBorder(new EmptyBorder(5, 5, 5, 5));
+        register.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+        this.register = new LFlatButton("Register", LTextAlign.CENTER, HighlightType.COMPONENT);
+        this.register.setActionCommand(InternalLoginState.REGISTER.name());
+        this.email = new LHintTextField("e-mail");
+        this.tag = new LHintTextField("tag", 5);
+        JLabel hashTag = new JLabel("#");
+        usernameLabel.setForeground(Color.WHITE);
+        JLabel emailLabel = new JLabel("E-Mail");
+        usernameLabel.setForeground(Color.WHITE);
+
+        userTagComponent.add(username);
+        userTagComponent.add(hashTag);
+        userTagComponent.add(tag);
+        register.add(usernameLabel);
+        register.add(userTagComponent);
+        register.add(emailLabel);
+        register.add(email);
+        register.add(passwordLabel);
+        register.add(password);
+        register.add(this.register);
+        parent.add(InternalLoginState.REGISTER.name(), register);
+
         this.setPreferredSize(new Dimension(300, 300));
         this.login.addActionListener(this);
+        this.register.addActionListener(this);
         this.container.add(this);
 
         // Using .setLabelFor() to bind labels to corresponding input fields
         usernameLabel.setLabelFor(username);
         passwordLabel.setLabelFor(password);
+        emailLabel.setLabelFor(email);
 
         // Enter hook so users can log in with enter
         KeyAdapter enterKeyAdapter = new KeyAdapter() {
@@ -119,9 +150,16 @@ public class LoginUI extends MainUIComponent implements ActionListener {
         if (pass.isEmpty()) {
             Client.showMessageDialog("Password can not be blank");
         } else {
-            this.toggle(InternalLoginState.LOADING);
             String user = username.getText();
-            Client.service.execute(() -> callback.onLogin(rememberMe.isSelected(), user, pass));
+            if (e.getActionCommand().equals(InternalLoginState.LOGIN.name())) {
+                this.toggle(InternalLoginState.LOADING);
+                Client.service.execute(() -> callback.onLogin(rememberMe.isSelected(), user, pass));
+            } else if (e.getActionCommand().equals(InternalLoginState.REGISTER.name())) {
+                this.toggle(InternalLoginState.REGISTER);
+                String email = this.email.getText();
+                String tag = this.tag.getText();
+                Client.service.execute(() -> callback.onRegister(email, user, tag, pass));
+            }
         }
     }
 

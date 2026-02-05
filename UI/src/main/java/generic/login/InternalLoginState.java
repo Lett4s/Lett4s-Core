@@ -6,5 +6,5 @@ package generic.login;
  **/
 
 public enum InternalLoginState {
-    LOGIN, LOADING
+    LOGIN, REGISTER, LOADING
 }

@@ -17,6 +17,7 @@ import java.beans.PropertyChangeListener;
  **/
 
 public class LHintTextField extends JTextField implements PropertyChangeListener {
+    private final int limitInput;
     private final String hint;
 
     private int rounding = 0;
@@ -24,8 +25,13 @@ public class LHintTextField extends JTextField implements PropertyChangeListener
     private boolean roundTL, roundTR, roundBL, roundBR, customRoundArea;
 
     public LHintTextField(String hint) {
+        this(hint, 0);
+    }
+
+    public LHintTextField(String hint, int limitInput) {
         ColorPalette.addThemeListener(this);
         this.hint = hint;
+        this.limitInput = Math.max(limitInput, 0);
         this.setForeground(Color.WHITE);
         this.setCaretColor(Color.WHITE);
         this.setBackground(ColorPalette.backgroundColor);
@@ -59,6 +65,8 @@ public class LHintTextField extends JTextField implements PropertyChangeListener
             graphics2D.fillRect(0,0,getWidth(),getHeight());
         */
         if (!getText().isEmpty()) return;
+        if (limitInput != 0 && getText().length() > limitInput)
+            setText(getText().substring(0, limitInput-1));
         int height = getHeight();
         Graphics2D graphics2D = (Graphics2D) g;
         graphics2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
