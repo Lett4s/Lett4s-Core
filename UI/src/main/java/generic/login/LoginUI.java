@@ -106,6 +106,7 @@ public class LoginUI extends MainUIComponent implements ActionListener {
         tagLabel.setForeground(Color.WHITE);
 
         GridBagConstraints c = new GridBagConstraints();
+        c.fill = GridBagConstraints.HORIZONTAL;
         c.weightx = 0.7;
         c.gridx = 0;
         c.gridy = 0;
