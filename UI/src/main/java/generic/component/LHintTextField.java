@@ -78,8 +78,8 @@ public class LHintTextField extends JTextField implements PropertyChangeListener
         FontMetrics fontMetrics = g.getFontMetrics();
         if (tag) {
             g.setColor(ColorPalette.textColor);
-            g.drawString("#", insets.left, height / 2 + fontMetrics.getAscent() / 2 - 2);
             width = fontMetrics.stringWidth("# ");
+            g.drawString("#", insets.left- width, height / 2 + fontMetrics.getAscent() / 2 - 2);
         }
         if (!getText().isEmpty()) return;
 
@@ -88,7 +88,7 @@ public class LHintTextField extends JTextField implements PropertyChangeListener
         int mask = 0xFEFEFEFE;
         int blend = ((background & mask) >>> 1) + ((foreground & mask) >>> 1);
         g.setColor(new Color(blend, true));
-        g.drawString(hint, insets.left + width, height / 2 + fontMetrics.getAscent() / 2 - 2);
+        g.drawString(hint, insets.left, height / 2 + fontMetrics.getAscent() / 2 - 2);
     }
 
     @Override
