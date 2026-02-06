@@ -27,10 +27,10 @@ public class LHintTextField extends JTextField implements PropertyChangeListener
     private boolean roundTL, roundTR, roundBL, roundBR, customRoundArea;
 
     public LHintTextField(String hint) {
-        this(hint, 0, false);
+        this(hint, 0, 0, false);
     }
 
-    public LHintTextField(String hint, int limitInput, boolean tag) {
+    public LHintTextField(String hint, int limitInput, int offset, boolean tag) {
         ColorPalette.addThemeListener(this);
         this.hint = hint;
         this.tag = tag;
@@ -45,6 +45,9 @@ public class LHintTextField extends JTextField implements PropertyChangeListener
         ));
         if (this.limitInput > 0) {
             this.setDocument(new LTextFieldLimit(this.limitInput));
+        }
+        if (offset > 0) {
+            this.setCaretPosition(offset);
         }
     }
 

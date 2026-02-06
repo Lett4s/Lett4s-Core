@@ -17,8 +17,6 @@ public class LTextFieldLimit extends PlainDocument {
         if (str == null) return;
 
         if ((getLength() + str.length()) <= limit) {
-            if ((getLength() + str.length()) == 1)
-                super.insertString(2, str, attr);
             super.insertString(offset, str, attr);
         }
     }
