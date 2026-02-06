@@ -44,7 +44,7 @@ public class LHintTextField extends JTextField implements PropertyChangeListener
                 new EmptyBorder(5, 5, 5, 5)
         ));
         if (this.limitInput > 0) {
-            this.setDocument(new LTextFieldLimit(this.limitInput, this.limitInput-5));
+            this.setDocument(new LTextFieldLimit(this.limitInput));
         }
     }
 

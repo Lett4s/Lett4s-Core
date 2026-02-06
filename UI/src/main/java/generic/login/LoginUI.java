@@ -94,7 +94,7 @@ public class LoginUI extends MainUIComponent implements ActionListener {
         this.cancel.setActionCommand("cancel");
         this.passwordRegister = new LHintPasswordTextField("password");
         this.usernameRegister = new LHintTextField("username");
-        this.tag = new LHintTextField("tag", 7, true);
+        this.tag = new LHintTextField("tag", 5, true);
         this.emailRegister = new LHintTextField("e-mail (optional)");
         JLabel usernameLabelReg = new JLabel("Username");
         usernameLabelReg.setForeground(Color.WHITE);
