@@ -19,7 +19,6 @@ import java.beans.PropertyChangeListener;
 
 public class LHintTextField extends JTextField implements PropertyChangeListener {
     private final int limitInput;
-    private final boolean tag;
     private final String hint;
 
     private int rounding = 0;
@@ -27,13 +26,12 @@ public class LHintTextField extends JTextField implements PropertyChangeListener
     private boolean roundTL, roundTR, roundBL, roundBR, customRoundArea;
 
     public LHintTextField(String hint) {
-        this(hint, 0, 0, false);
+        this(hint, 0);
     }
 
-    public LHintTextField(String hint, int limitInput, int offset, boolean tag) {
+    public LHintTextField(String hint, int limitInput) {
         ColorPalette.addThemeListener(this);
         this.hint = hint;
-        this.tag = tag;
         this.limitInput = Math.max(limitInput, 0);
         this.setForeground(Color.WHITE);
         this.setCaretColor(Color.WHITE);
@@ -45,9 +43,6 @@ public class LHintTextField extends JTextField implements PropertyChangeListener
         ));
         if (this.limitInput > 0) {
             this.setDocument(new LTextFieldLimit(this.limitInput));
-        }
-        if (offset > 0) {
-            this.setCaretPosition(offset);
         }
     }
 
@@ -73,27 +68,19 @@ public class LHintTextField extends JTextField implements PropertyChangeListener
         else
             graphics2D.fillRect(0,0,getWidth(),getHeight());
         */
-        if (!getText().isEmpty() && !tag) return;
-        int width = 0;
+        if (!getText().isEmpty()) return;
         int height = getHeight();
         Graphics2D graphics2D = (Graphics2D) g;
         graphics2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         Insets insets = getInsets();
         FontMetrics fontMetrics = g.getFontMetrics();
 
-        if (tag) {
-            width = fontMetrics.stringWidth("# ");
-            g.setColor(ColorPalette.textColor);
-            g.drawString("#", insets.left, height / 2 + fontMetrics.getAscent() / 2 - 2);
-        }
-        if (!getText().isEmpty()) return;
-
         int background = getBackground().getRGB();
         int foreground = getForeground().getRGB();
         int mask = 0xFEFEFEFE;
         int blend = ((background & mask) >>> 1) + ((foreground & mask) >>> 1);
         g.setColor(new Color(blend, true));
-        g.drawString(hint, insets.left+width, height / 2 + fontMetrics.getAscent() / 2 - 2);
+        g.drawString(hint, insets.left, height / 2 + fontMetrics.getAscent() / 2 - 2);
     }
 
     @Override

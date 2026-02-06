@@ -83,9 +83,9 @@ public class LoginUI extends MainUIComponent implements ActionListener {
         login.add(this.login);
         parent.add(InternalLoginState.LOGIN.name(), login);
 
-        ChildUIComponent userTagComponent = new ChildUIComponent(new GridLayout(0, 2, 5, 0));
         ChildUIComponent buttonComponent = new ChildUIComponent(new GridLayout(0, 2, 5, 0));
         ChildUIComponent register = new ChildUIComponent(new GridLayout(0, 1, 0, 5));
+        ChildUIComponent userTagComponent = new ChildUIComponent(new GridBagLayout());
         register.setBorder(new EmptyBorder(5, 5, 5, 5));
 
         this.register = new LFlatButton("Register", LTextAlign.CENTER, HighlightType.COMPONENT);
@@ -94,7 +94,7 @@ public class LoginUI extends MainUIComponent implements ActionListener {
         this.cancel.setActionCommand("cancel");
         this.passwordRegister = new LHintPasswordTextField("password");
         this.usernameRegister = new LHintTextField("username");
-        this.tag = new LHintTextField("tag", 7, 2, true);
+        this.tag = new LHintTextField("tag", 5);
         this.emailRegister = new LHintTextField("e-mail (optional)");
         JLabel usernameLabelReg = new JLabel("Username");
         usernameLabelReg.setForeground(Color.WHITE);
@@ -102,9 +102,22 @@ public class LoginUI extends MainUIComponent implements ActionListener {
         passwordLabelReg.setForeground(Color.WHITE);
         JLabel emailLabelReg = new JLabel("E-Mail");
         emailLabelReg.setForeground(Color.WHITE);
+        JLabel tagLabel = new JLabel("#");
+        tagLabel.setForeground(Color.WHITE);
 
-        userTagComponent.add(usernameRegister);
-        userTagComponent.add(tag);
+        GridBagConstraints c = new GridBagConstraints();
+        c.weightx = 0.7;
+        c.gridx = 0;
+        c.gridy = 0;
+        userTagComponent.add(usernameRegister, c);
+        c.weightx = 0.1;
+        c.gridx = 1;
+        userTagComponent.add(tagLabel, c);
+        c.weightx = 0.2;
+        c.gridx = 2;
+        userTagComponent.add(tag, c);
+
+
         register.add(usernameLabelReg);
         register.add(userTagComponent);
         register.add(emailLabelReg);
