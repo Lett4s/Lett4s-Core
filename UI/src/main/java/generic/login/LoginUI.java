@@ -25,20 +25,20 @@ import java.awt.event.KeyEvent;
 
 public class LoginUI extends MainUIComponent implements ActionListener {
 
+    private final JButton login;
+    private final JButton cancel;
+    private final JButton register;
+    private final LHintTextField tag;
+    private final JCheckBox rememberMe;
+    private final ILoginCallback callback;
+    private final LHintTextField username;
+    private final LHintTextField emailRegister;
+    private final LHintPasswordTextField password;
+    private final LHintTextField usernameRegister;
+    private final LHintPasswordTextField passwordRegister;
+    private final AnimationVisualizer animationVisualizer;
     private final CardLayout cardLayout = new CardLayout();
     private final ChildUIComponent parent = new ChildUIComponent(cardLayout);
-    private final AnimationVisualizer animationVisualizer;
-    private final LHintPasswordTextField passwordRegister;
-    private final LHintTextField usernameRegister;
-    private final LHintPasswordTextField password;
-    private final LHintTextField emailRegister;
-    private final LHintTextField username;
-    private final ILoginCallback callback;
-    private final JCheckBox rememberMe;
-    private final LHintTextField tag;
-    private final JButton register;
-    private final JButton cancel;
-    private final JButton login;
 
     private LoginUI(Client client, ILoginCallback callback) {
         super(client.getRoot());
@@ -67,13 +67,13 @@ public class LoginUI extends MainUIComponent implements ActionListener {
         this.login = new LFlatButton("Login", LTextAlign.CENTER, HighlightType.COMPONENT);
         this.login.setActionCommand("login");
         this.rememberMe = new LFlatCheckBox("Remember Me");
-        this.rememberMe.setForeground(Color.WHITE);
+        this.rememberMe.setForeground(ColorPalette.textColor);
         this.rememberMe.setFocusPainted(false);
         this.rememberMe.setBackground(ColorPalette.buttonSelectionColor);
         JLabel usernameLabel = new JLabel("Username");
-        usernameLabel.setForeground(Color.WHITE);
+        usernameLabel.setForeground(ColorPalette.textColor);
         JLabel passwordLabel = new JLabel("Password");
-        passwordLabel.setForeground(Color.WHITE);
+        passwordLabel.setForeground(ColorPalette.textColor);
 
         login.add(rememberMe);
         login.add(usernameLabel);
@@ -97,12 +97,13 @@ public class LoginUI extends MainUIComponent implements ActionListener {
         this.tag = new LHintTextField("tag", 5);
         this.emailRegister = new LHintTextField("e-mail (optional)");
         JLabel usernameLabelReg = new JLabel("Username");
-        usernameLabelReg.setForeground(Color.WHITE);
+        usernameLabelReg.setForeground(ColorPalette.textColor);
         JLabel passwordLabelReg = new JLabel("Password");
-        passwordLabelReg.setForeground(Color.WHITE);
+        passwordLabelReg.setForeground(ColorPalette.textColor);
         JLabel emailLabelReg = new JLabel("E-Mail");
-        emailLabelReg.setForeground(Color.WHITE);
-        JLabel tagLabel = new JLabel("#", SwingConstants.CENTER);
+        emailLabelReg.setForeground(ColorPalette.textColor);
+        SwiftLabel tagLabel = new SwiftLabel("#", SwingConstants.CENTER);
+        tagLabel.setForeground(ColorPalette.textColor);
         tagLabel.setFont(new Font("Dialog", Font.PLAIN, 22));
 
         GridBagConstraints c = new GridBagConstraints();
