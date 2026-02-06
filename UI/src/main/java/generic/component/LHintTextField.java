@@ -44,7 +44,7 @@ public class LHintTextField extends JTextField implements PropertyChangeListener
                 new EmptyBorder(5, 5, 5, 5)
         ));
         if (this.limitInput > 0) {
-            this.setDocument(new LTextFieldLimit(this.limitInput));
+            this.setDocument(new LTextFieldLimit(this.limitInput, 5));
         }
     }
 
@@ -70,18 +70,12 @@ public class LHintTextField extends JTextField implements PropertyChangeListener
         else
             graphics2D.fillRect(0,0,getWidth(),getHeight());
         */
-        int width = 0;
+        if (!getText().isEmpty()) return;
         int height = getHeight();
         Graphics2D graphics2D = (Graphics2D) g;
         graphics2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         Insets insets = getInsets();
         FontMetrics fontMetrics = g.getFontMetrics();
-        if (tag) {
-            g.setColor(ColorPalette.textColor);
-            width = fontMetrics.stringWidth("# ");
-            g.drawString("#", insets.left- width, height / 2 + fontMetrics.getAscent() / 2 - 2);
-        }
-        if (!getText().isEmpty()) return;
 
         int background = getBackground().getRGB();
         int foreground = getForeground().getRGB();
