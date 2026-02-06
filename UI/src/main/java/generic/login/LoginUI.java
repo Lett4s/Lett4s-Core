@@ -102,7 +102,7 @@ public class LoginUI extends MainUIComponent implements ActionListener {
         passwordLabelReg.setForeground(Color.WHITE);
         JLabel emailLabelReg = new JLabel("E-Mail");
         emailLabelReg.setForeground(Color.WHITE);
-        SwiftLabel tagLabel = new SwiftLabel("#", SwingConstants.CENTER);
+        JLabel tagLabel = new JLabel("#", SwingConstants.CENTER);
         tagLabel.setFont(new Font("Dialog", Font.PLAIN, 22));
 
         GridBagConstraints c = new GridBagConstraints();
