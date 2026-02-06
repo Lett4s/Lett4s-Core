@@ -83,7 +83,7 @@ public class LoginUI extends MainUIComponent implements ActionListener {
         login.add(this.login);
         parent.add(InternalLoginState.LOGIN.name(), login);
 
-        ChildUIComponent userTagComponent = new ChildUIComponent(new GridLayout(0, 3, 5, 0));
+        ChildUIComponent userTagComponent = new ChildUIComponent(new GridLayout(0, 2, 5, 0));
         ChildUIComponent buttonComponent = new ChildUIComponent(new GridLayout(0, 2, 5, 0));
         ChildUIComponent register = new ChildUIComponent(new GridLayout(0, 1, 0, 5));
         register.setBorder(new EmptyBorder(5, 5, 5, 5));
