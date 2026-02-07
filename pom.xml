@@ -30,7 +30,7 @@
         <dependency>
             <groupId>com.github.hawolt.custom-core</groupId>
             <artifactId>logger</artifactId>
-            <version>90d7c80857</version>
+            <version>6314a903f1</version>
         </dependency>
     </dependencies>
 
